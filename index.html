@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        
+        /* There are a number of sites that offer free CSS-based backgrounds to add to your site to make them more interesting. If you do use them in your projects (academic, personal, or professiona;), be sure to attribute the authors! They worked hard on them so you can use them for free! */
+        /* 
+            https://css-pattern.com/
+            https://www.magicpattern.design/tools/css-backgrounds
+        */
+
+
+        html {
+            background-color: #000000;
+opacity: 1;
+background-image:  linear-gradient(30deg, #0b0b0b 12%, transparent 12.5%, transparent 87%, #0b0b0b 87.5%, #0b0b0b), linear-gradient(150deg, #0b0b0b 12%, transparent 12.5%, transparent 87%, #0b0b0b 87.5%, #0b0b0b), linear-gradient(30deg, #0b0b0b 12%, transparent 12.5%, transparent 87%, #0b0b0b 87.5%, #0b0b0b), linear-gradient(150deg, #0b0b0b 12%, transparent 12.5%, transparent 87%, #0b0b0b 87.5%, #0b0b0b), linear-gradient(60deg, #0b0b0b77 25%, transparent 25.5%, transparent 75%, #0b0b0b77 75%, #0b0b0b77), linear-gradient(60deg, #0b0b0b77 25%, transparent 25.5%, transparent 75%, #0b0b0b77 75%, #0b0b0b77);
+background-size: 20px 35px;
+background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+            
+/* We can set up gradients as our background using background-image and a gradient function.  */
+            /* There are a few of them, but here are two easy ones to start with. */
+            
+            /* linear-gradient takes at least two colours. It can also take an angle */
+            /* background-image: linear-gradient(red, blue); */
+            /* background: linear-gradient(90deg, darkgreen, lightblue);  */
+
+            /* We can also specify multiple colour stops - this lets us define a more complicated ramp with several colours. After the optional angle, we provide pairs of colour/stop values. stop values can be percentages or other distance values. You can have as many of these as you like. */
+            /* background-image: 
+                linear-gradient(0, 
+                    rgb(255, 0, 0, 1) 0, 
+                    rgba(11, 0, 128, 0.5) 90%, 
+                    yellow 100%); */
+                    
+            /* We can also use radial gradients, which start at the center of the page and work outwards. These are great for adding a sense of depth to our page with very little effort. */
+            /* background: radial-gradient(rgb(5, 98, 5), rgb(17, 93, 42)); */
+
+            /* I'm setting the background size here to ensure the gradient fills the whole page. */
+            /* background-size: 100vw 100vh; */
+
+            /* animation: bg_scroll 5s infinite; */
+        }
+
+        /* @keyframes bg_scroll {
+            from { 
+                background: linear-gradient(90deg, darkgreen, lightblue);
+            }
+            to { 
+                background: linear-gradient(0deg, red, lightblue);
+            }
+        } */
+
+        body {
+            margin: 0;
+            font-size: 30px;
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        section {
+            min-height: 100vh;
+            /* background-color: #871124; */
+        }
+        section:nth-child(2) {
+            background-color: black;
+        }
+
+        /* If we want to animate a CSS-based background, our options are limited. Gradients and background image can't be animated or tranitioned. So we're kinda stuck using transform on the container. This can still have good effects though! */
+        .background {
+            /* I'm setting this to fixed so that it won't overflow out the page and add horizontal scrolling. It also has the side effect of creating a parallax effect - the background won't appear to move, even if the content does. */
+            position: fixed;
+            /* We need to add some extra space on the sides so that when we rotate it, the background won't run out of room. */
+            top: -100vh;
+            bottom: -100vh;
+            left: -100vw;
+            right: -100vw;
+
+            /* Because it's position fixed, it will naturally sit on top of other stuff on the page. Because it's a background element we should give it a negative z-index to push it backwards. */
+            z-index: -10;
+
+            /* We can slap an animation on this container to rotate the whole thing */
+            animation: bg_scroll 60s infinite alternate;
+            /* animation: bg_scroll 10s infinite linear; */
+
+
+            /* The code that follows was taken from css-patterns.com. They pull some CSS wizardry using gradients and custom properties to make complex and cool patterns. */
+            --s: 50px; /* control the size*/
+            --c1: #ca185f; /* First colour */
+            --c2: #871124; /* Second colour */
+
+            /* These are the guts of a gradient - various colours and stops. They're using more than one here for added complexity. */
+            --_g: 
+            #0000 calc(-650%/13) calc(50%/13),var(--c1) 0 calc(100%/13),
+            #0000 0 calc(150%/13),var(--c1) 0 calc(200%/13),
+            #0000 0 calc(250%/13),var(--c1) 0 calc(300%/13); 
+            --_g0: repeating-linear-gradient( 45deg,var(--_g));
+            --_g1: repeating-linear-gradient(-45deg,var(--_g));
+
+            /* The actual value set here relies on multiple gradients. This is really complex stuff, so don't worry if this isn't clear. The maker of this code really knows what they're doing and they're pushing CSS to its limits to achieve this effect. */
+            background:
+                var(--_g0),var(--_g0) var(--s) var(--s),
+                var(--_g1),var(--_g1) var(--s) var(--s) var(--c2);
+
+            /* Lastly, the size is set through the above custom property.*/
+            background-size: calc(2*var(--s)) calc(2*var(--s));
+
+        }
+
+        /* This animation zooms out and rotates a little. */
+        @keyframes bg_scroll {
+            from {
+                /* transform: translate(0, 0); */
+                transform: scale(1) rotate(0);
+            }
+            to {
+                transform: scale(0.8) rotate(45deg);
+                /* transform: translate(75px, 75px); */
+            }
+        }
+
+        .svg {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <!-- background div holds the scrolling pattern. -->
+        <div class="background"></div>
+    </section>
+
+    <!-- The real magic is in the svg background. -->
+    <section>
+        
+        <!-- The svg needs a width of 100% and not 100vw because 10vw will include the vertical scrollbar. This will result in some extra horizontal width that will create a horizontal scrollbar. 100% will not include the scrollbar. -->
+        <!-- The viewbox will just be set to teh dimensions of the viewport. This will be automatically responsive. -->
+        <svg class="svg" width="100%" height="100vh">
+            <defs>
+                <!-- In our defs, we can have a few patterns. The width and height will be the dimensions of the 'tiles'. patternUnits configures the pattern to use the coordinate system of the svg. Of course, it also has a unique id so that we can reference it. -->
+                <pattern id="circle" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <!-- Our pattern is very simple: just a circle. It has some basic initial values, but we'll override the radius and the fill in a moment -->
+                    <circle r="50" cx="50" cy="50" fill="darkred">
+                        <!-- In SVG land, if we want to animate something, we put <animate> tags inside it. These require us to name the parent (circle in this case) attribute we want to change. From there, we provide an initial from value and a to value, a duration, and a repeat count. Note that the value for repeat count to be infinite is 'indefinite' unlike in CSS. -->
+                        <!-- <animate 
+                            attributeName="fill"
+                            from="#007"
+                            to="darkred"
+                            dur="5s"
+                            begin="2s"
+                            repeatCount="indefinite"/> -->
+                        <!-- To do more advanced animations with multiple keyframes, we provide a list of keyTimes and values. The keyTimes are the points in the animation where the keyframes are located. The values are the value of the animated attribute at those times. Note that tehse values are semicolon separated. -->
+                        <!-- We may want to add timing functions for these keyframes. To do so, we must set calcMode="spline". Then we provide a list of bezier curve control points, again semi-colon separated. The points themselves are separated by spaces. These points control the timing of one keyframe to the next, so we need to provide as many splines as keyTimes, minus one. Be careful with the syntax here, one typo and it just stops working. -->
+                        <!-- If we want to get these curves easily, we can use https://cubic-bezier.com/ -->
+                        <animate 
+                            attributeName="r"
+                            keyTimes="0; 0.4; 0.6; 1"
+                            values="75; 5; 5; 75"
+                            keySplines=".42 0 .58 1; .42 0 .58 1; .42 0 .58 1"
+                            calcMode="spline"
+                            dur="18s"
+                            repeatCount="indefinite"/>
+                        <animate 
+                            attributeName="fill"
+                            keyTimes="0; 0.5; 1"
+                            values="#400; #844; #400"
+                            keySplines=".42 0 .58 1; .42 0 .58 1"
+                            calcMode="spline"
+                            dur="10s"
+                            repeatCount="indefinite"/>
+                    </circle>
+                </pattern>
+
+                <!-- Another pattern, with some different parameters. The discrepencies in radius, position, duration and delay (begin) create a much more complex image. Especially here were the colours are partially transparent.  -->
+                <pattern id="circle2" width="50" height="50" patternUnits="userSpaceOnUse">
+                    <circle r="25" cx="25" cy="25" fill="#633">
+                        <animate 
+                            attributeName="r"
+                            keyTimes="0; 0.4; 0.6; 1"
+                            values="0; 30; 30; 0"
+                            keySplines=".42 0 .58 1; .42 0 .58 1; .42 0 .58 1"
+                            calcMode="spline"
+                            dur="40s"
+                            repeatCount="indefinite"/>
+                        <animate 
+                            attributeName="fill"
+                            keyTimes="0; 0.5; 1"
+                            values="#f66; #744; #f66"
+                            keySplines=".42 0 .58 1; .42 0 .58 1"
+                            calcMode="spline"
+                            dur="90s"
+                            repeatCount="indefinite"/>
+                    </circle>
+                </pattern>
+            </defs>
+
+            <!-- Finally, we just need to display these patterns. We're showing each pattern, setting the fill of the rectangles to display them. -->
+            <rect width="100vw" height="100vh" fill="url(#circle)" />
+            <rect width="100vw" height="100vh" fill="url(#circle2)" />
+
+            
+        </svg>
+    </section>
+</body>
+</html>
